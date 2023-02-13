@@ -20,13 +20,18 @@ describe("Counter", function () {
     describe("Increment", function () {
         it("Should increment the count by 1", async function () {
             const counter = await loadFixture(deployFixture)
-
             const n = 10
             for (let i = 0; i < n; i++) {
                 await counter.increment()
                 expect(await counter.count()).to.eq(i + 1)
             }
-
+        })
+        it("Should emit a Increment event", async function () {
+            const [signer] = await ethers.getSigners()
+            const counter = await loadFixture(deployFixture)
+            await expect(counter.increment()).to.emit(counter, "Increment").withArgs(
+                signer.address, 1
+            )
         })
     })
 })
