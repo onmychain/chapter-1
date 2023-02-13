@@ -11,5 +11,8 @@
   },
   "scripts": {
     "start:dev": "npx nodemon"
+  },
+  "dependencies": {
+    "ethers": "^6.0.3"
   }
 }
