@@ -34,4 +34,25 @@ describe("Counter", function () {
             )
         })
     })
+    describe("Decrement", function () {
+        it("Should decrement the count by 1", async function () {
+            const counter = await loadFixture(deployFixture)
+            const n = 5
+            for (let i = 0; i < n; i++) {
+                await counter.increment()
+            }
+            for (let i = n; i > 0; i--) {
+                await counter.decrement()
+                expect(await counter.count()).to.eq(i - 1)
+            }
+        })
+        it("Should emit a Decrement event", async function () {
+            const [signer] = await ethers.getSigners()
+            const counter = await loadFixture(deployFixture)
+            await counter.increment()
+            await expect(counter.decrement()).to.emit(counter, "Decrement").withArgs(
+                signer.address, 0
+            )
+        })
+    })
 })

@@ -7,7 +7,10 @@ async function main() {
     const httpProvider = new ethers.JsonRpcProvider() // default: http://127.0.0.1:8545/
     const contract = new ethers.Contract(CONTRACT_ADDRESS, abi, httpProvider)
     contract.on('Increment', (sender, count, event) => {
-        console.log(`count: ${ethers.formatUnits(count, 'wei')} incremented by ${sender}. tx: ${event.log.transactionHash}`)
+        console.log(`Incremented count: ${ethers.formatUnits(count, 'wei')}.`)
+    })
+    contract.on('Decrement', (sender, count, event) => {
+        console.log(`Decremented count: ${ethers.formatUnits(count, 'wei')}.`)
     })
 }
 

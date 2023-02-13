@@ -8,11 +8,17 @@ contract Counter {
     uint public count = 0;
 
     event Increment(address sender, uint count);
+    event Decrement(address sender, uint count);
 
     constructor() {}
 
-    function increment() public {
+    function increment() external {
         count++;
         emit Increment(msg.sender, count);
+    }
+
+    function decrement() external {
+        count--;
+        emit Decrement(msg.sender, count);
     }
 }
